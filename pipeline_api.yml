@@ -1,0 +1,42 @@
+# Docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  imageRepository: 'kinesiosazureapi'
+  containerRegistry: 'kinesiosazurecontainer.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/KinesiOSAzureApi/Dockerfile'
+  buildContextPath: '$(Build.SourcesDirectory)'
+  tag: 'latest'
+
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Start build stage (Api)
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push container (Api)
+      inputs:
+        command: buildAndPush
+        buildContext: $(buildContextPath)
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: 'Docker Registry Connection'
+        tags: |
+          $(tag)
+    - task: AzureAppServiceManage@0
+      displayName: Restart app service (Api)
+      inputs:
+        azureSubscription: 'Azure Resource Connection'
+        Action: 'Restart Azure App Service'
+        WebAppName: 'kinesiosazureapi'
