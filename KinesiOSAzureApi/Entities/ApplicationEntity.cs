@@ -1,10 +1,17 @@
-﻿namespace KinesiOSAzureApi.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class ApplicationModel
+namespace KinesiOSAzureApi.Entities;
+
+public class ApplicationEntity
 {
+    [Required]
     public int ApplicationId { get; set; }
+    [Required]
     public string? ApplicationName { get; set; }
+    [Required]
     public int DeviceId { get; set; }
+    [Required]
     public int UserId { get; set; }
+    [Required]
     public DateTime ApplicationUpdateDate { get; set; }
 }
