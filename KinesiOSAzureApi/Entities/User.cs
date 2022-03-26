@@ -2,7 +2,7 @@
 
 namespace KinesiOSAzureApi.Entities;
 
-public class UserEntity
+public class User
 {
     [Required]
     public int UserId { get; set; }

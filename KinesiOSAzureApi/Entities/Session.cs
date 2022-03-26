@@ -2,7 +2,7 @@
 
 namespace KinesiOSAzureApi.Entities;
 
-public class SessionEntity
+public class Session
 {
     [Required]
     public int SessionId { get; set; }

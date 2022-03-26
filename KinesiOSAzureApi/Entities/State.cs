@@ -2,16 +2,16 @@
 
 namespace KinesiOSAzureApi.Entities;
 
-public class CityEntity
+public class State
 {
-    [Required]
-    public int CityId { get; set; }
-    [Required]
-    public string? CityName { get; set; }
     [Required]
     public int StateId { get; set; }
     [Required]
+    public string? StateName { get; set; }
+    [Required]
+    public int CountryId { get; set; }
+    [Required]
     public int UserId { get; set; }
     [Required]
-    public DateTime CityUpdateDate { get; set; }
+    public DateTime StateUpdateDate { get; set; }
 }
