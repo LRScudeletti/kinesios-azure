@@ -4,7 +4,7 @@ namespace KinesiOSAzureApi.Entities;
 
 public class Specialist
 {
-    [Required]
+    [Key]
     public int SpecialistId { get; set; }
     [Required]
     public string? SpecialistDocument { get; set; }

@@ -4,7 +4,7 @@ namespace KinesiOSAzureApi.Entities;
 
 public class Device
 {
-    [Required]
+    [Key]
     public int DeviceId { get; set; }
     [Required]
     public string? DeviceName { get; set; }

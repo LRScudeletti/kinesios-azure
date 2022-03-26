@@ -4,7 +4,7 @@ namespace KinesiOSAzureApi.Entities;
 
 public class MedicalRecord
 {
-    [Required]
+    [Key]
     public int MedicalRecordId { get; set; }
     [Required]
     public int PatientId { get; set; }

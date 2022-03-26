@@ -4,7 +4,7 @@ namespace KinesiOSAzureApi.Entities;
 
 public class Country
 {
-    [Required]
+    [Key]
     public int CountryId { get; set; }
     [Required]
     public string? CountryName { get; set; }

@@ -4,7 +4,7 @@ namespace KinesiOSAzureApi.Entities;
 
 public class Application
 {
-    [Required]
+    [Key]
     public int ApplicationId { get; set; }
     [Required]
     public string? ApplicationName { get; set; }
