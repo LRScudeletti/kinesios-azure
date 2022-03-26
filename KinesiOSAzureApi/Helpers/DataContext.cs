@@ -5,16 +5,16 @@ namespace KinesiOSAzureApi.Helpers;
 
 public class DataContext : DbContext
 {
-    protected readonly IConfiguration Configuration;
+    private readonly IConfiguration _configuration;
 
     public DataContext(IConfiguration configuration)
     {
-        Configuration = configuration;
+        _configuration = configuration;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(Configuration.GetConnectionString("KinesiOSAzureSqlServer") ?? throw new InvalidOperationException());
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("KinesiOSAzureApiSqlServer") ?? throw new InvalidOperationException());
     }
 
     public DbSet<User>? Users { get; set; }
