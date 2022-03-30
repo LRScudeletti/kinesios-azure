@@ -27,11 +27,12 @@ public class DataContext : DbContext
         }
     }
 
-    public DbSet<Application>? Application { get; set; }
-    public DbSet<City>? City { get; set; }
-    public DbSet<Country>? Country { get; set; }
-    public DbSet<Device>? Device { get; set; }
-    public DbSet<Session>? Session { get; set; }
-    public DbSet<State>? State { get; set; }
-    public DbSet<User>? User { get; set; }
+    public DbSet<Application>? Applications { get; set; }
+    public DbSet<City>? Cities { get; set; }
+    public DbSet<Country>? Countries { get; set; }
+    public DbSet<Device>? Devices { get; set; }
+    public DbSet<Patient>? Patients { get; set; }
+    public DbSet<Session>? Sessions { get; set; }
+    public DbSet<State>? States { get; set; }
+    public DbSet<User>? Users { get; set; }
 }

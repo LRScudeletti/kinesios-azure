@@ -20,4 +20,6 @@ public class City
 
     [Required]
     public DateTime CityUpdateDate { get; set; }
+
+    public virtual List<Patient>? Patients { get; set; }
 }
