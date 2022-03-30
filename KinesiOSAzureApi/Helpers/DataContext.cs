@@ -33,6 +33,7 @@ public class DataContext : DbContext
     public DbSet<Device>? Devices { get; set; }
     public DbSet<Patient>? Patients { get; set; }
     public DbSet<Session>? Sessions { get; set; }
+    public DbSet<Specialist>? Specialist { get; set; }
     public DbSet<State>? States { get; set; }
     public DbSet<User>? Users { get; set; }
 }
