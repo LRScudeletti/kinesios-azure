@@ -31,6 +31,7 @@ public class DataContext : DbContext
     public DbSet<City>? Cities { get; set; }
     public DbSet<Country>? Countries { get; set; }
     public DbSet<Device>? Devices { get; set; }
+    public DbSet<MedicalRecord>? MedicalRecords { get; set; }
     public DbSet<Patient>? Patients { get; set; }
     public DbSet<Session>? Sessions { get; set; }
     public DbSet<Specialist>? Specialist { get; set; }

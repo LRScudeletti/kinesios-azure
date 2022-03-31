@@ -30,4 +30,6 @@ public class Patient
 
     [Required]
     public DateTime PatientUpdateDate { get; set; }
+
+    public virtual List<MedicalRecord>? MedicalRecords { get; set; }
 }

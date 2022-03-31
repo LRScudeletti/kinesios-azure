@@ -30,4 +30,6 @@ public class Specialist
 
     [Required]
     public DateTime SpecialistUpdateDate { get; set; }
+
+    public virtual List<Specialist>? Specialists { get; set; }
 }
