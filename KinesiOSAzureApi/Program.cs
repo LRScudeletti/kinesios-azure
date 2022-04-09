@@ -29,6 +29,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+// Global error handler
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.MapControllers();
 
 app.Run();
