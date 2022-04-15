@@ -6,5 +6,5 @@ public class StateModel
     public string? StateName { get; set; }
     public int CountryId { get; set; }
     public int UserId { get; set; }
-    public DateTime StateUpdateDate { get; set; }
+    public DateTime StateUpdateDate { get; set; } = DateTime.Now;
 }

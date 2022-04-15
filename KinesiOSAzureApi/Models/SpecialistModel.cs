@@ -10,6 +10,7 @@ public class SpecialistModel
     public int CityId { get; set; }
     public int SpecialistPhone { get; set; }
     public string? SpecialistEmail { get; set; }
+    public bool Status { get; set; } = true;
     public int UserId { get; set; }
-    public DateTime SpecialistUpdateDate { get; set; }
+    public DateTime SpecialistUpdateDate { get; set; } = DateTime.Now;
 }

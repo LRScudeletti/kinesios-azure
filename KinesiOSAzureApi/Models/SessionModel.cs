@@ -8,5 +8,5 @@ public class SessionModel
     public string? SessionDetail { get; set; }
     public DateTime SessionDate { get; set; }
     public int UserId { get; set; }
-    public DateTime SessionUpdateDate { get; set; }
+    public DateTime SessionUpdateDate { get; set; } = DateTime.Now;
 }

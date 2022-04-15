@@ -8,6 +8,7 @@ public class MedicalRecordModel
     public string? MedicalRecordDescription { get; set; }
     public string? MedicalRecordDetail { get; set; }
     public DateTime MedicalRecordDate { get; set; }
+    public bool Status { get; set; } = true;
     public int UserId { get; set; }
-    public DateTime MedicalRecordUpdateDate { get; set; }
+    public DateTime MedicalRecordUpdateDate { get; set; } = DateTime.Now;
 }

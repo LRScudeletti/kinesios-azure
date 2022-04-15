@@ -10,6 +10,7 @@ public class PatientModel
     public int CityId { get; set; }
     public int PatientPhone { get; set; }
     public string? PatientEmail { get; set; }
+    public bool Status { get; set; } = true;
     public int UserId { get; set; }
-    public DateTime PatientUpdateDate { get; set; }
+    public DateTime PatientUpdateDate { get; set; } = DateTime.Now;
 }
