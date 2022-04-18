@@ -1,7 +1,6 @@
-namespace WebApi.Helpers
+namespace KinesiOSAzureApi.Helpers;
+
+public class AppSettings
 {
-    public class AppSettings
-    {
-        public string Secret { get; set; }
-    }
+    public string Secret { get; set; }
 }

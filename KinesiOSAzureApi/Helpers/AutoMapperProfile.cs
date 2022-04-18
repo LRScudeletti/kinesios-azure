@@ -1,16 +1,14 @@
-using AutoMapper;
-using KinesiOSAzureApi.Entities;
-using KinesiOSAzureApi.Models;
+namespace KinesiOSAzureApi.Helpers;
 
-namespace KinesiOSAzureApi.Helpers
+using Entities;
+using Models.Users;
+
+using AutoMapper;
+
+public class AutoMapperProfile : Profile
 {
-    public class AutoMapperProfile : Profile
+    public AutoMapperProfile()
     {
-        public AutoMapperProfile()
-        {
-            CreateMap<User, UserModel>();
-            CreateMap<Patient, PatientModel>();
-            CreateMap<MedicalRecord, MedicalRecordModel>();
-        }
+        CreateMap<User, CreateUser>();
     }
 }

@@ -1,26 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace KinesiOSAzureApi.Entities;
 
-namespace KinesiOSAzureApi.Entities;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
-// ReSharper disable once ClassNeverInstantiated.Global
 public class User
 {
     [Key]
-    public int UserId { get; set; }
-
-    [Required]
     public string? Username { get; set; }
 
-    public int? PatientId { get; set; }
+    public string? UserPassword { get; set; }
 
-    public int? SpecialistId { get; set; }
+    [JsonIgnore]
+    public string? UserPasswordHash { get; set; }
 
-    [Required]
-    public string? Password { get; set; }
+    public Role UserRole { get; set; }
 
-    [Required]
-    public int UserIdUpdate { get; set; }
+    public bool UserStatus { get; set; }
 
-    [Required]
+    public string? UserUpdate { get; set; }
+
     public DateTime UserUpdateDate { get; set; }
 }

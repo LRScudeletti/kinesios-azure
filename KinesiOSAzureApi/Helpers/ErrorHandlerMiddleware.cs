@@ -1,41 +1,49 @@
-﻿using System.Net;
+﻿namespace KinesiOSAzureApi.Helpers;
+
+using System.Net;
 using System.Text.Json;
 
-namespace KinesiOSAzureApi.Helpers
+public class ErrorHandlerMiddleware
 {
-    public class ErrorHandlerMiddleware
+    private readonly RequestDelegate _next;
+    private readonly ILogger _logger;
+
+    public ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+        _logger = logger;
+    }
 
-        public ErrorHandlerMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context)
+    {
+        try
         {
-            _next = next;
+            await _next(context);
         }
-
-        public async Task Invoke(HttpContext context)
+        catch (Exception error)
         {
-            try
-            {
-                await _next(context);
-            }
-            catch (Exception error)
-            {
-                var response = context.Response;
-                response.ContentType = "application/json";
+            var response = context.Response;
+            response.ContentType = "application/json";
 
-                response.StatusCode = error switch
-                {
+            switch (error)
+            {
+                case AppException:
                     // Custom application error
-                    AppException => (int)HttpStatusCode.BadRequest,
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
+                case KeyNotFoundException:
                     // Not found error
-                    KeyNotFoundException => (int)HttpStatusCode.NotFound,
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    break;
+                default:
                     // Unhandled error
-                    _ => (int)HttpStatusCode.InternalServerError
-                };
-
-                var result = JsonSerializer.Serialize(new { message = error.Message });
-                await response.WriteAsync(result);
+                    _logger.LogError(error, error.Message);
+                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    break;
             }
+
+            var result = JsonSerializer.Serialize(new { message = error.Message });
+            await response.WriteAsync(result);
         }
     }
 }
