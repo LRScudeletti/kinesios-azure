@@ -13,6 +13,10 @@ public class User
     [JsonIgnore]
     public string? UserPasswordHash { get; set; }
 
+    public string? Email { get; set; }
+
+    public string? Phone { get; set; }
+
     public Role UserRole { get; set; }
 
     public bool UserStatus { get; set; }

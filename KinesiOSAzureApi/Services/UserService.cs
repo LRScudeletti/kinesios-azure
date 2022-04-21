@@ -9,8 +9,13 @@ using Models.Users;
 public interface IUserService
 {
     void CreateUser(CreateUser createUser);
+
     IEnumerable<User>? ReadAllUsers();
+
     User ReadUserByUsername(string username);
+
+    void UpdateUser(string username, UpdateUser updateUser);
+
     void DeleteUser(string username);
 }
 
@@ -50,6 +55,24 @@ public class UserService : IUserService
     public User ReadUserByUsername(string username)
     {
         return GetUser(username);
+    }
+
+    public void UpdateUser(string username, UpdateUser updateUser)
+    {
+        var user = GetUser(username);
+
+        // Validate
+        if (updateUser.Email != user.Email && _context.Users.Any(x => x.Email == updateUser.Email))
+            throw new AppException("User with the email '" + user.Email + "' already exists");
+
+        // Hash password if it was entered
+        if (!string.IsNullOrEmpty(updateUser.Password))
+            user.UserPasswordHash = BCrypt.HashPassword(updateUser.UserPassword);
+
+        // Copy model to user and save
+        _mapper.Map(updateUser, user);
+        _context.Users.Update(user);
+        _context.SaveChanges();
     }
 
     public void DeleteUser(string username)
