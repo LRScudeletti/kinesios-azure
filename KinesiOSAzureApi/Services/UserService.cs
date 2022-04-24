@@ -1,22 +1,23 @@
-﻿namespace KinesiOSAzureApi.Services;
+﻿using KinesiOSAzureApi.Models;
+
+namespace KinesiOSAzureApi.Services;
 
 using AutoMapper;
 using BCrypt.Net;
 using Entities;
 using Helpers;
-using Models.Users;
 
 public interface IUserService
 {
-    void CreateUser(CreateUser createUser);
+    void CreateUser(UserModel userModel);
 
     IEnumerable<User>? ReadAllUsers();
 
-    User ReadUserByUsername(string username);
+    User ReadUserByEmail(string email);
 
-    void UpdateUser(string username, UpdateUser updateUser);
+    //void UpdateUser(string username, UpdateUser updateUser);
 
-    void DeleteUser(string username);
+    void DeleteUser(string email);
 }
 
 public class UserService : IUserService
@@ -30,17 +31,17 @@ public class UserService : IUserService
         _mapper = mapper;
     }
 
-    public void CreateUser(CreateUser createUser)
+    public void CreateUser(UserModel userModel)
     {
         // Validate
-        if (_context.Users != null && _context.Users.Any(x => x.Username == createUser.Username))
-            throw new AppException("Username '" + createUser.Username + "' already exists.");
+        if (_context.Users != null && _context.Users.Any(x => x.Email == userModel.Email))
+            throw new AppException("Email '" + userModel.Email + "' already exists.");
 
         // Map createUser to new user object
-        var user = _mapper.Map<User>(createUser);
+        var user = _mapper.Map<User>(userModel);
 
         // Hash password
-        user.UserPasswordHash = BCrypt.HashPassword(createUser.UserPassword);
+        user.PasswordHash = BCrypt.HashPassword(userModel.Password);
 
         // Save user
         _context.Users?.Add(user);
@@ -52,42 +53,43 @@ public class UserService : IUserService
         return _context.Users;
     }
 
-    public User ReadUserByUsername(string username)
+    public User ReadUserByEmail(string email)
     {
-        return GetUser(username);
+        return GetUser(email);
     }
 
-    public void UpdateUser(string username, UpdateUser updateUser)
+    //public void UpdateUser(string username, UpdateUser updateUser)
+    //{
+    //    var user = GetUser(username);
+
+    //    // Validate
+    //    if (_context.Users != null && updateUser.UserEmail != user.Email &&
+    //        _context.Users.Any(x => x.Email == updateUser.UserEmail))
+    //        throw new AppException("Email '" + user.Email + "' already exists.");
+
+    //    // Hash password if it was entered
+    //    if (!string.IsNullOrEmpty(updateUser.UserPassword))
+    //        user.UserPasswordHash = BCrypt.HashPassword(updateUser.UserPassword);
+
+    //    // Copy model to user and save
+    //    _mapper.Map(updateUser, user);
+    //    _context.Users?.Update(user);
+    //    _context.SaveChanges();
+    //}
+
+    public void DeleteUser(string email)
     {
-        var user = GetUser(username);
-
-        // Validate
-        if (updateUser.Email != user.Email && _context.Users.Any(x => x.Email == updateUser.Email))
-            throw new AppException("User with the email '" + user.Email + "' already exists");
-
-        // Hash password if it was entered
-        if (!string.IsNullOrEmpty(updateUser.Password))
-            user.UserPasswordHash = BCrypt.HashPassword(updateUser.UserPassword);
-
-        // Copy model to user and save
-        _mapper.Map(updateUser, user);
-        _context.Users.Update(user);
-        _context.SaveChanges();
-    }
-
-    public void DeleteUser(string username)
-    {
-        var user = GetUser(username);
+        var user = GetUser(email);
         _context.Users?.Remove(user);
         _context.SaveChanges();
     }
 
     // Helper method
-    private User GetUser(string username)
+    private User GetUser(string email)
     {
-        var user = _context.Users?.Find(username);
+        var user = _context.Users?.Find(email);
         if (user == null)
-            throw new KeyNotFoundException("Username '" + username + "' not found.");
+            throw new KeyNotFoundException("Email '" + email + "' not found.");
 
         return user;
     }

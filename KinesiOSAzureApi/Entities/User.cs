@@ -6,22 +6,35 @@ using System.Text.Json.Serialization;
 public class User
 {
     [Key]
-    public string? Username { get; set; }
-
-    public string? UserPassword { get; set; }
-
-    [JsonIgnore]
-    public string? UserPasswordHash { get; set; }
-
     public string? Email { get; set; }
 
-    public string? Phone { get; set; }
+    [Required]
+    public string? FirstName { get; set; }
 
-    public Role UserRole { get; set; }
+    [Required]
+    public string? LastName { get; set; }
 
-    public bool UserStatus { get; set; }
+    [JsonIgnore]
+    [Required]
+    public string? Password { get; set; }
 
+    [JsonIgnore]
+    [Required]
+    public string? PasswordHash { get; set; }
+
+    [Required]
+    [EnumDataType(typeof(Role))]
+    public int Role { get; set; }
+
+    [Required]
+    public bool FirstAccess { get; set; }
+
+    [Required]
+    public bool Status { get; set; }
+
+    [Required]
     public string? UserUpdate { get; set; }
 
-    public DateTime UserUpdateDate { get; set; }
+    [Required]
+    public DateTime UpdateDate { get; set; } = DateTime.Now;
 }

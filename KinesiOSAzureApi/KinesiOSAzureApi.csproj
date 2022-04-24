@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Nullable>enable</Nullable>
+		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>7585101a-95f0-432b-9a0e-b174cdb7e405</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -10,9 +10,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Entities\User.cs~RF126e4fb.TMP" />
-	  <None Remove="Entities\User.cs~RF25e1876.TMP" />
-	  <None Remove="Helpers\DataContext.cs~RF7d1ed2.TMP" />
+		<None Remove="Entities\User.cs~RF126e4fb.TMP" />
+		<None Remove="Entities\User.cs~RF25e1876.TMP" />
+		<None Remove="Helpers\DataContext.cs~RF7d1ed2.TMP" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -20,8 +20,8 @@
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.0" />

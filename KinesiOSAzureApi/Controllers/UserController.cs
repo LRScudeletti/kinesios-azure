@@ -1,6 +1,7 @@
-﻿namespace KinesiOSAzureApi.Controllers;
+﻿using KinesiOSAzureApi.Models;
 
-using Models.Users;
+namespace KinesiOSAzureApi.Controllers;
+
 using Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +17,10 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("create")]
-    public IActionResult CreateUser(CreateUser createUser)
+    public IActionResult CreateUser(UserModel userModel)
     {
-        _userService.CreateUser(createUser);
-        return Ok(new { message = "User '" + createUser.Username + "' created successfully." });
+        _userService.CreateUser(userModel);
+        return Ok(new { message = "User '" + userModel.Email + "' created successfully." });
     }
 
     [HttpGet("read")]
@@ -30,11 +31,18 @@ public class UserController : ControllerBase
     }
 
     [HttpGet(("read/{username}"))]
-    public IActionResult ReadUserByUsername(string username)
+    public IActionResult ReadUserByUsername(string email)
     {
-        var user = _userService.ReadUserByUsername(username);
+        var user = _userService.ReadUserByEmail(email);
         return Ok(user);
     }
+
+    //[HttpPut("update/{username}")]
+    //public IActionResult UpdateUser(string username, UpdateUser updateUser)
+    //{
+    //    _userService.UpdateUser(username, updateUser);
+    //    return Ok(new { message = "User '" + username + "' updated successfully." });
+    //}
 
     [HttpDelete(("delete/{username}"))]
     public IActionResult DeleteUser(string username)
