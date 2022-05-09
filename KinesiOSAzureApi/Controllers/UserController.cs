@@ -1,9 +1,8 @@
-﻿using KinesiOSAzureApi.Models;
+﻿namespace KinesiOSAzureApi.Controllers;
 
-namespace KinesiOSAzureApi.Controllers;
-
-using Services;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using Services;
 
 [ApiController]
 [Route("[controller]")]
@@ -37,12 +36,12 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
-    //[HttpPut("update/{username}")]
-    //public IActionResult UpdateUser(string username, UpdateUser updateUser)
-    //{
-    //    _userService.UpdateUser(username, updateUser);
-    //    return Ok(new { message = "User '" + username + "' updated successfully." });
-    //}
+    [HttpPut("update/{username}")]
+    public IActionResult UpdateUser(string username, UpdateUser updateUser)
+    {
+        _userService.UpdateUser(username, updateUser);
+        return Ok(new { message = "User '" + username + "' updated successfully." });
+    }
 
     [HttpDelete(("delete/{username}"))]
     public IActionResult DeleteUser(string username)
